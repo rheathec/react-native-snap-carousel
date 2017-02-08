@@ -235,6 +235,8 @@ export default class Carousel extends Component {
             clearTimeout(this._snapNoMomentumTimeout);
         }
 
+        this._newActiveItem = newActiveItem;
+
         if (activeItem !== newActiveItem) {
             Animated[animationFunc](
                 this.state.interpolators[activeItem],
@@ -298,7 +300,7 @@ export default class Carousel extends Component {
         if (enableMomentum && Platform.OS === 'ios') {
             this._snapNoMomentumTimeout =
                 setTimeout(() => {
-                    this._snapScroll(0);
+                    this.snapToItem(this._newActiveItem);
                 }, 100);
         }
     }
